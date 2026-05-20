@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiRefreshCw, FiX } from 'react-icons/fi';
 import { useTranslation } from '../../hooks/useTranslation';
+import { track } from '../../utils/analytics';
 
 export default function UpdateToast() {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ export default function UpdateToast() {
 
   const handleRefresh = () => {
     setIsRefreshing(true);
+    track('update_toast_refresh');
     // 关闭 toast
     setShowToast(false);
 
@@ -47,6 +49,7 @@ export default function UpdateToast() {
   };
 
   const handleDismiss = () => {
+    track('update_toast_dismiss');
     setShowToast(false);
   };
 

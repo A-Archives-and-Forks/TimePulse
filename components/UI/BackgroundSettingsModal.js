@@ -5,6 +5,7 @@ import { useBackground } from '../../context/BackgroundContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useTranslation } from '../../hooks/useTranslation';
 import imageStorage from '../../utils/imageStorage';
+import { track, bucketFileSize } from '../../utils/analytics';
 
 export default function BackgroundSettingsModal({ onClose }) {
   const { t } = useTranslation();
@@ -65,6 +66,7 @@ export default function BackgroundSettingsModal({ onClose }) {
       setSuccess('背景图片设置成功！');
       setImageUrl('');
       setActiveTab('preview');
+      track('background_set_url');
 
       // 3秒后自动关闭
       setTimeout(() => {
@@ -91,6 +93,10 @@ export default function BackgroundSettingsModal({ onClose }) {
       setCustomBackgroundId(id);
       setSuccess('背景图片上传成功！');
       setActiveTab('preview');
+      track('background_set_file', {
+        size_bucket: bucketFileSize(file.size),
+        mime: file.type || 'unknown',
+      });
 
       // 3秒后自动关闭
       setTimeout(() => {
@@ -118,6 +124,7 @@ export default function BackgroundSettingsModal({ onClose }) {
     clearCustomBackground();
     setPreviewUrl(null);
     setSuccess('已清除自定义背景');
+    track('background_clear');
 
     // 3秒后自动关闭
     setTimeout(() => {
@@ -171,7 +178,7 @@ export default function BackgroundSettingsModal({ onClose }) {
                 ? { backgroundColor: accentColor }
                 : {}
             }
-            onClick={() => setActiveTab('url')}
+            onClick={() => { setActiveTab('url'); track('background_tab_change', { tab: 'url' }); }}
           >
             <FiLink className="inline mr-2" />
             图片 URL
@@ -187,7 +194,7 @@ export default function BackgroundSettingsModal({ onClose }) {
                 ? { backgroundColor: accentColor }
                 : {}
             }
-            onClick={() => setActiveTab('file')}
+            onClick={() => { setActiveTab('file'); track('background_tab_change', { tab: 'file' }); }}
           >
             <FiUpload className="inline mr-2" />
             上传文件
@@ -203,7 +210,7 @@ export default function BackgroundSettingsModal({ onClose }) {
                 ? { backgroundColor: accentColor }
                 : {}
             }
-            onClick={() => setActiveTab('preview')}
+            onClick={() => { setActiveTab('preview'); track('background_tab_change', { tab: 'preview' }); }}
           >
             <FiEye className="inline mr-2" />
             预览与调整
@@ -362,7 +369,7 @@ export default function BackgroundSettingsModal({ onClose }) {
                           ? { borderColor: accentColor, color: accentColor }
                           : {}
                       }
-                      onClick={() => setBackgroundMode(mode.value)}
+                      onClick={() => { setBackgroundMode(mode.value); track('background_mode_change', { mode: mode.value }); }}
                     >
                       <Icon className={`text-2xl mx-auto mb-2 ${
                         backgroundMode === mode.value ? '' : 'text-gray-400'

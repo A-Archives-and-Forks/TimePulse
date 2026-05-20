@@ -299,7 +299,7 @@ export default function LoginModal({ onClose }) {
               <button
                 className="btn-glass-primary"
                 onClick={generateSyncId}
-                data-umami-event={t('login.generateId')}
+                data-insightflare-event="sync_generate"
                 disabled={isLoading}
               >
                 {isLoading ? t('login.generating') : t('login.generateId')}
@@ -338,7 +338,7 @@ export default function LoginModal({ onClose }) {
                 type="submit"
                 className="w-full btn-glass-primary flex items-center justify-center"
                 disabled={isLoading}
-                data-umami-event={t('login.loginAndSync')}
+                data-insightflare-event="sync_login_submit"
               >
                 <FiDownload className="mr-2" />
                 {isLoading ? t('common.loading') : t('login.loginAndSync')}
@@ -362,7 +362,7 @@ export default function LoginModal({ onClose }) {
                     <button
                       className="ml-2 btn-glass-primary"
                       onClick={saveSyncId}
-                      data-umami-event="保存同步ID"
+                      data-insightflare-event="sync_save_id"
                       disabled={isLoading}
                     >
                       <FiSave />
@@ -395,7 +395,7 @@ export default function LoginModal({ onClose }) {
                   <button
                     className={`btn-glass-primary rounded-r-lg rounded-l-none ${copied ? 'bg-green-500/30 border-green-500/40' : ''}`}
                     onClick={copyUrl}
-                    data-umami-event="复制同步链接"
+                    data-insightflare-event="sync_link_copy"
                   >
                     {copied ? <FiCheck /> : <FiCopy />}
                   </button>
@@ -407,7 +407,7 @@ export default function LoginModal({ onClose }) {
                   <button
                     className={`flex-1 btn-glass-primary flex items-center justify-center ${isOffline ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={isOffline ? null : uploadToRemote}
-                    data-umami-event="上传数据"
+                    data-insightflare-event="sync_upload"
                     disabled={isLoading || isOffline}
                   >
                     <FiUpload className="mr-2" />
@@ -417,7 +417,7 @@ export default function LoginModal({ onClose }) {
                   <button
                     className={`flex-1 btn-glass-primary flex items-center justify-center ${isOffline ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={isOffline ? null : loadFromRemote}
-                    data-umami-event="下载数据"
+                    data-insightflare-event="sync_download"
                     disabled={isLoading || isOffline}
                   >
                     <FiDownload className="mr-2" />
@@ -464,7 +464,7 @@ export default function LoginModal({ onClose }) {
                   url: syncUrl
                 });
               }}
-              data-umami-event="分享同步链接"
+              data-insightflare-event="sync_link_share"
               disabled={isLoading}
             >
               <FiShare2 className="mr-2" />

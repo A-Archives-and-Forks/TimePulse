@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
     // 页面加载完成后记录日志
     console.log(`TimePulse 初始化完成 - ${new Date().toLocaleString()}`);
     
-    // 监听hash变化以支持umami统计
+    // 监听hash变化以支持InsightFlare统计
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
     };

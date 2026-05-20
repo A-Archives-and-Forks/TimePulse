@@ -136,7 +136,7 @@ export default function AddStopwatchModal({ onClose }) {
                 className="btn-glass-primary"
                 onClick={() => setStep(2)}
                 disabled={!formData.name}
-                data-umami-event="下一步-选择正计时颜色"
+                data-insightflare-event="stopwatch_step_color"
               >
                 {t('common.next', '下一步')}
               </button>
@@ -176,7 +176,8 @@ export default function AddStopwatchModal({ onClose }) {
                   className={`w-full aspect-square rounded-full ${formData.color === color ? 'ring-2 ring-white' : ''}`}
                   style={{ backgroundColor: color }}
                   onClick={() => handleColorChange(color)}
-                  data-umami-event={`选择正计时预设颜色-${color}`}
+                  data-insightflare-event="stopwatch_color_preset"
+                  data-insightflare-event-color={color}
                 ></button>
               ))}
             </div>
@@ -191,7 +192,7 @@ export default function AddStopwatchModal({ onClose }) {
               <button
                 className="btn-glass-primary"
                 onClick={handleSubmit}
-                data-umami-event="创建正计时-确认"
+                data-insightflare-event="stopwatch_create_confirm"
               >
                 {t('modal.addStopwatch.createAndStart', '创建并开始')}
               </button>

@@ -6,6 +6,7 @@ import { useTimers } from '../../context/TimerContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useTranslation } from '../../hooks/useTranslation';
 import { createShareUrl } from '../../utils/shareUtils';
+import { track } from '../../utils/analytics';
 import CustomSelect from './CustomSelect';
 
 export default function ShareModal({ onClose }) {
@@ -67,9 +68,11 @@ export default function ShareModal({ onClose }) {
   const handleSelectChange = (e) => {
     if (e.target.value === 'all') {
       setShareAll(true);
+      track('share_target_change', { mode: 'all' });
     } else {
       setShareAll(false);
       setSelectedTimer(e.target.value);
+      track('share_target_change', { mode: 'single' });
     }
   };
 
@@ -114,7 +117,6 @@ export default function ShareModal({ onClose }) {
             placeholder={t('share.selectTimer', '选择要分享的倒计时')}
             label={t('share.selectTimer', '选择要分享的倒计时')}
             icon={FiList}
-            data-umami-event="选择分享计时器"
           />
         </div>
         
@@ -133,7 +135,7 @@ export default function ShareModal({ onClose }) {
                 backgroundColor: copied ? '#10b981' : accentColor 
               }}
               onClick={handleCopy}
-              data-umami-event="复制分享链接"
+              data-insightflare-event="share_link_copy"
             >
               {copied ? <FiCheck /> : <FiCopy />}
             </button>
@@ -177,7 +179,7 @@ export default function ShareModal({ onClose }) {
             <button
               className="flex-1 btn-glass-primary flex items-center justify-center"
               onClick={handleWebShare}
-              data-umami-event={t('share.systemShare', '使用系统分享')}
+              data-insightflare-event="share_system"
             >
               <FiShare2 className="mr-2" />
               {t('share.systemShare', '系统分享')}

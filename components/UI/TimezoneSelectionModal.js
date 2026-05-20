@@ -160,7 +160,8 @@ export default function TimezoneSelectionModal({ onClose, onSelectTimezone, titl
                 whileTap={{ scale: 0.98 }}
                 className="p-3 rounded-lg hover:bg-white/10 dark:hover:bg-black/10 transition-colors text-left flex items-center space-x-3 min-w-0"
                 onClick={() => handleSelectTimezone(tz)}
-                data-umami-event={`选择时区-${translatedCity}`}
+                data-insightflare-event="timezone_select"
+                data-insightflare-event-timezone={tz.timezone}
               >
                 <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
                   <FiMapPin className="text-blue-500 text-sm" />

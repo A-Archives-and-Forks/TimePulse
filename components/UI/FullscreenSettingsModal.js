@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiRotateCcw } from 'react-icons/fi';
 import { useFullscreen } from '../../context/FullscreenContext';
 import { useTheme } from '../../context/ThemeContext';
+import { track } from '../../utils/analytics';
 
 export default function FullscreenSettingsModal({ onClose }) {
   const { theme, accentColor } = useTheme();
@@ -36,6 +37,7 @@ export default function FullscreenSettingsModal({ onClose }) {
   const handleReset = () => {
     resetToDefaults();
     setSuccess(true);
+    track('fullscreen_settings_reset');
     setTimeout(() => setSuccess(false), 2000);
   };
 
@@ -104,7 +106,7 @@ export default function FullscreenSettingsModal({ onClose }) {
                           color: 'inherit'
                         }
                   }
-                  onClick={() => setTimerFontSize(size.value)}
+                  onClick={() => { setTimerFontSize(size.value); track('fullscreen_settings_change', { field: 'timer_font_size', value: size.value }); }}
                 >
                   <div className={`text-lg font-bold mb-1`}>
                     {size.label}
@@ -141,7 +143,7 @@ export default function FullscreenSettingsModal({ onClose }) {
                           color: 'inherit'
                         }
                   }
-                  onClick={() => setLabelFontSize(size.value)}
+                  onClick={() => { setLabelFontSize(size.value); track('fullscreen_settings_change', { field: 'label_font_size', value: size.value }); }}
                 >
                   <div className={`text-lg font-bold mb-1`}>
                     {size.label}
@@ -178,7 +180,7 @@ export default function FullscreenSettingsModal({ onClose }) {
                           color: 'inherit'
                         }
                   }
-                  onClick={() => setHeaderHideDelay(delay.value)}
+                  onClick={() => { setHeaderHideDelay(delay.value); track('fullscreen_settings_change', { field: 'header_hide_delay', value: delay.value }); }}
                 >
                   <div className={`text-lg font-bold mb-1`}>
                     {delay.label}

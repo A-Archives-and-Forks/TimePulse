@@ -107,7 +107,7 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-3 py-1.5 text-sm rounded-full bg-gray-600 hover:bg-gray-700 dark:bg-white/20 dark:hover:bg.white/30 text-white dark:text-white transition-colors"
-                data-umami-event={t('footer.visitGitHub', '访问GitHub')}
+                data-insightflare-event="github_visit"
               >
                 <FiGithub className="mr-1 md:mr-2" /> {t('footer.gitHubRepo', 'GitHub 仓库')}
               </a>
@@ -172,7 +172,7 @@ export default function Footer() {
               onClick={updateCache}
               disabled={isCacheUpdating || isOffline}
               title={t('footer.updateCache', '更新应用缓存')}
-              data-umami-event="更新缓存"
+              data-insightflare-event="cache_update_trigger"
             >
               <FiRefreshCw className={`mr-1 w-3 h-3 ${isCacheUpdating ? 'animate-spin' : ''}`} />
               <span>{t('footer.updateCacheText', '更新缓存')}</span>

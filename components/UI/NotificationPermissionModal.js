@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiBell, FiX, FiCheck, FiAlertCircle } from 'react-icons/fi';
 import { useTranslation } from '../../hooks/useTranslation';
+import { track } from '../../utils/analytics';
 
 export default function NotificationPermissionModal({ isOpen, onClose, onAllow, onDeny }) {
   const { t } = useTranslation();
@@ -13,7 +14,8 @@ export default function NotificationPermissionModal({ isOpen, onClose, onAllow, 
     
     try {
       const permission = await Notification.requestPermission();
-      
+      track('notification_permission_result', { result: permission });
+
       if (permission === 'granted') {
         setStep('success');
         setTimeout(() => {
@@ -28,6 +30,7 @@ export default function NotificationPermissionModal({ isOpen, onClose, onAllow, 
       }
     } catch (error) {
       console.error('请求通知权限失败:', error);
+      track('notification_permission_result', { result: 'error' });
       setStep('failed');
       setTimeout(() => {
         setStep('request');
@@ -38,6 +41,7 @@ export default function NotificationPermissionModal({ isOpen, onClose, onAllow, 
   };
 
   const handleDeny = () => {
+    track('notification_modal_deny');
     onDeny();
     handleClose();
   };

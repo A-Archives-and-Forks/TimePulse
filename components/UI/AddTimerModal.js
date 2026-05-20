@@ -135,7 +135,7 @@ export default function AddTimerModal({ onClose }) {
               <button 
                 className="w-full glass-card p-4 mb-4 text-left flex items-center hover:bg-white/10 dark:hover:bg-black/10"
                 onClick={() => setShowHolidaysList(!showHolidaysList)}
-                data-umami-event="查看节假日列表"
+                data-insightflare-event="holiday_list_toggle"
               >
                 <FiCalendar className="mr-2 text-primary-500" />
                 <span>{t('modal.countdown.selectHoliday', '选择常用节假日')}</span>
@@ -148,7 +148,8 @@ export default function AddTimerModal({ onClose }) {
                       key={index}
                       className="w-full p-2 mb-2 rounded-lg flex items-center justify-between hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
                       onClick={() => handleSelectHoliday(holiday)}
-                      data-umami-event={`选择节假日-${holiday.name}`}
+                      data-insightflare-event="holiday_select"
+                      data-insightflare-event-holiday={holiday.name}
                     >
                       <span>{holiday.name}</span>
                       <span 
@@ -238,7 +239,7 @@ export default function AddTimerModal({ onClose }) {
                 className="btn-glass-primary"
                 onClick={() => setStep(2)}
                 disabled={!formData.name || !formData.targetDate || !formData.targetTime}
-                data-umami-event="下一步-选择颜色"
+                data-insightflare-event="countdown_step_color"
               >
                 {t('common.next', '下一步')}
               </button>
@@ -278,7 +279,8 @@ export default function AddTimerModal({ onClose }) {
                   className={`w-full aspect-square rounded-full ${formData.color === color ? 'ring-2 ring-white' : ''}`}
                   style={{ backgroundColor: color }}
                   onClick={() => handleColorChange(color)}
-                  data-umami-event={`选择预设颜色-${color}`}
+                  data-insightflare-event="countdown_color_preset"
+                  data-insightflare-event-color={color}
                 ></button>
               ))}
             </div>
@@ -293,7 +295,7 @@ export default function AddTimerModal({ onClose }) {
               <button
                 className="btn-glass-primary"
                 onClick={handleSubmit}
-                data-umami-event="创建计时器-确认"
+                data-insightflare-event="countdown_create_confirm"
               >
                 {t('common.create', '创建')}
               </button>

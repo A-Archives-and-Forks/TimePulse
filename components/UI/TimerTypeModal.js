@@ -66,7 +66,8 @@ export default function TimerTypeModal({ onClose, onSelectType }) {
                 whileTap={{ scale: 0.98 }}
                 className="w-full p-4 rounded-xl glass-card hover:bg-white/10 dark:hover:bg-black/10 transition-colors text-left"
                 onClick={() => onSelectType(type.id)}
-                data-umami-event={`选择计时器类型-${type.name}`}
+                data-insightflare-event="timer_type_select"
+                data-insightflare-event-type={type.id}
               >
                 <div className="flex items-center space-x-4">
                   <div 

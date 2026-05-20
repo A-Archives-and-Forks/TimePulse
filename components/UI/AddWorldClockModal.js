@@ -117,7 +117,7 @@ export default function AddWorldClockModal({ onClose }) {
                 <button 
                   className="w-full glass-card p-4 mb-4 text-left flex items-center hover:bg-white/10 dark:hover:bg-black/10"
                   onClick={() => setShowTimezoneModal(true)}
-                  data-umami-event="选择世界时间时区"
+                  data-insightflare-event="worldclock_open_picker"
                 >
                   <FiGlobe className="mr-2 text-primary-500" />
                   <span>{t('modal.addWorldClock.selectTimezoneAndCity', '选择时区和城市')}</span>
@@ -166,7 +166,7 @@ export default function AddWorldClockModal({ onClose }) {
                     className="btn-glass-primary"
                     onClick={() => setStep(2)}
                     disabled={!formData.name}
-                    data-umami-event="下一步-选择世界时间颜色"
+                    data-insightflare-event="worldclock_step_color"
                   >
                     {t('common.next', '下一步')}
                   </button>
@@ -207,7 +207,8 @@ export default function AddWorldClockModal({ onClose }) {
                     className={`w-full aspect-square rounded-full ${formData.color === color ? 'ring-2 ring-white' : ''}`}
                     style={{ backgroundColor: color }}
                     onClick={() => handleColorChange(color)}
-                    data-umami-event={`选择世界时间预设颜色-${color}`}
+                    data-insightflare-event="worldclock_color_preset"
+                    data-insightflare-event-color={color}
                   ></button>
                 ))}
               </div>
@@ -222,7 +223,7 @@ export default function AddWorldClockModal({ onClose }) {
                 <button
                   className="btn-glass-primary"
                   onClick={handleSubmit}
-                  data-umami-event="创建世界时间-确认"
+                  data-insightflare-event="worldclock_create_confirm"
                 >
                   {t('common.create', '创建')}
                 </button>

@@ -320,7 +320,8 @@ export default function WorldClockSelectionModal({ onClose, onSelectWorldClock }
                   whileTap={{ scale: 0.98 }}
                   className="p-3 rounded-lg glass-card hover:bg-white/10 dark:hover:bg-black/10 transition-colors text-left min-w-0"
                   onClick={() => handleSelectPopular(worldClock)}
-                  data-umami-event={`选择常用世界时间-${translatedCity}`}
+                  data-insightflare-event="worldclock_preset_select"
+                  data-insightflare-event-timezone={worldClock.timezone}
                 >
                   <div className="flex items-center space-x-3 min-w-0">
                     <div 
@@ -345,7 +346,7 @@ export default function WorldClockSelectionModal({ onClose, onSelectWorldClock }
               <button
                 className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
                 onClick={() => setShowAll(true)}
-                data-umami-event="查看所有时区"
+                data-insightflare-event="worldclock_view_all"
               >
                 {t('modal.addWorldClock.viewMoreTimezones', '查看更多时区')}
               </button>
@@ -381,7 +382,8 @@ export default function WorldClockSelectionModal({ onClose, onSelectWorldClock }
                     whileTap={{ scale: 0.98 }}
                     className="p-2 rounded-lg hover:bg-white/10 dark:hover:bg-black/10 transition-colors text-left min-w-0"
                     onClick={() => handleSelectTimezone(tz)}
-                    data-umami-event={`选择时区-${translatedCity}`}
+                    data-insightflare-event="timezone_select"
+                    data-insightflare-event-timezone={tz.timezone}
                   >
                     <div className="font-medium truncate">{translatedCity}</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400 truncate">

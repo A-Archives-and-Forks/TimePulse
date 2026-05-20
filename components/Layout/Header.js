@@ -533,7 +533,8 @@ export default function Header() {
                         : {}
                     }
                     onClick={() => setActiveTimerId(timer.id)}
-                    data-umami-event="切换计时器"
+                    data-insightflare-event="timer_switch"
+                    data-insightflare-event-from="desktop_expanded"
                   >
                     {timer.name}
                   </motion.button>
@@ -570,7 +571,8 @@ export default function Header() {
                       className="px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap text-white shadow-md transition-all duration-300 ease-out hover:shadow-lg"
                       style={{ backgroundColor: timer.color || '#0ea5e9' }}
                       onClick={handleActiveTabClick}
-                      data-umami-event="切换计时器"
+                      data-insightflare-event="timer_switch"
+                      data-insightflare-event-from="desktop_collapsed"
                     >
                       {timer.name}
                     </motion.button>
@@ -594,7 +596,8 @@ export default function Header() {
                   window.location.hash = 'add';
                 }
               }}
-              data-umami-event={t('timer.create')}
+              data-insightflare-event="timer_create_open"
+              data-insightflare-event-from="desktop"
             >
               <FiPlus className="text-xl" />
             </button>
@@ -607,7 +610,7 @@ export default function Header() {
                   window.location.hash = 'background';
                 }
               }}
-              data-umami-event="背景设置"
+              data-insightflare-event="background_open"
             >
               <FiImage className="text-xl" />
             </button>
@@ -621,7 +624,8 @@ export default function Header() {
                   window.location.hash = 'share';
                 }
               }}
-              data-umami-event={t('timer.share')}
+              data-insightflare-event="share_open"
+              data-insightflare-event-from="desktop"
             >
               <FiShare2 className="text-xl" />
             </button>
@@ -630,7 +634,8 @@ export default function Header() {
             <button
               className="p-2 ml-1 rounded-full btn-glass-hover text-gray-700 dark:text-gray-300 cursor-pointer"
               onClick={toggleFullscreen}
-              data-umami-event={isFullscreen ? t('header.exitFullscreen') : t('header.fullscreen')}
+              data-insightflare-event="fullscreen_toggle"
+              data-insightflare-event-to={isFullscreen ? 'off' : 'on'}
             >
               {isFullscreen ? <FiMinimize className="text-xl" /> : <FiMaximize className="text-xl" />}
             </button>
@@ -639,16 +644,18 @@ export default function Header() {
             <button
               className="p-2 ml-1 rounded-full btn-glass-hover text-gray-700 dark:text-gray-300 cursor-pointer"
               onClick={openLoginModal}
-              data-umami-event={t('header.login')}
+              data-insightflare-event="login_open"
+              data-insightflare-event-from="desktop"
             >
               <FiUser className="text-xl" />
             </button>
-            
+
             {/* 主题切换 */}
             <button
               className="p-2 ml-1 rounded-full btn-glass-hover text-gray-700 dark:text-gray-300 cursor-pointer"
               onClick={toggleTheme}
-              data-umami-event={t('header.themeToggle')}
+              data-insightflare-event="theme_toggle"
+              data-insightflare-event-to={theme === 'dark' ? 'light' : 'dark'}
             >
               {theme === 'dark' ? <FiSun className="text-xl" /> : <FiMoon className="text-xl" />}
             </button>
@@ -657,7 +664,8 @@ export default function Header() {
             <button
               className="p-2 ml-1 rounded-full btn-glass-hover text-gray-700 dark:text-gray-300 cursor-pointer"
               onClick={() => setIsLanguageOpen(true)}
-              data-umami-event={t('header.languageSelect')}
+              data-insightflare-event="language_picker_open"
+              data-insightflare-event-from="desktop"
             >
               <FiGlobe className="text-xl" />
             </button>
@@ -671,7 +679,8 @@ export default function Header() {
                   window.location.hash = 'manage';
                 }
               }}
-              data-umami-event={t('header.manage')}
+              data-insightflare-event="manage_open"
+              data-insightflare-event-from="desktop"
             >
               <FiSettings className="text-xl" />
             </button>
@@ -688,7 +697,8 @@ export default function Header() {
                   window.location.hash = 'add';
                 }
               }}
-              data-umami-event={t('timer.create')}
+              data-insightflare-event="timer_create_open"
+              data-insightflare-event-from="mobile"
             >
               <FiPlus className="text-xl" />
             </button>
@@ -697,7 +707,7 @@ export default function Header() {
             <button
               className="p-2 ml-1 rounded-full btn-glass-hover text-gray-700 dark:text-gray-300 cursor-pointer"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              data-umami-event={t('header.menu')}
+              data-insightflare-event="mobile_menu_toggle"
             >
               {isMenuOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
             </button>
@@ -725,7 +735,8 @@ export default function Header() {
                     toggleFullscreen();
                     setIsMenuOpen(false);
                   }}
-                  data-umami-event={isFullscreen ? t('header.exitFullscreen') : t('header.fullscreen')}
+                  data-insightflare-event="fullscreen_toggle"
+                  data-insightflare-event-to={isFullscreen ? 'off' : 'on'}
                 >
                   {isFullscreen ? <FiMinimize className="text-xl" /> : <FiMaximize className="text-xl" />}
                   <span className="text-xs ml-2 flex-1 text-right">{isFullscreen ? t('header.exitFullscreen') : t('header.fullscreen')}</span>
@@ -737,7 +748,8 @@ export default function Header() {
                     toggleTheme();
                     setIsMenuOpen(false);
                   }}
-                  data-umami-event={t('header.themeToggle')}
+                  data-insightflare-event="theme_toggle"
+                  data-insightflare-event-to={theme === 'dark' ? 'light' : 'dark'}
                 >
                   {theme === 'dark' ? <FiSun className="text-xl" /> : <FiMoon className="text-xl" />}
                   <span className="text-xs ml-2 flex-1 text-right">{t('header.themeToggle')}</span>
@@ -750,7 +762,8 @@ export default function Header() {
                     setIsLanguageOpen(true);
                     setIsMenuOpen(false);
                   }}
-                  data-umami-event={t('header.languageSelect')}
+                  data-insightflare-event="language_picker_open"
+                  data-insightflare-event-from="mobile"
                 >
                   <FiGlobe className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">{t('header.language')}</span>
@@ -765,7 +778,8 @@ export default function Header() {
                       window.location.hash = 'manage';
                     }
                   }}
-                  data-umami-event={t('header.manage')}
+                  data-insightflare-event="manage_open"
+                  data-insightflare-event-from="mobile"
                 >
                   <FiSettings className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">{t('header.settings')}</span>
@@ -778,7 +792,8 @@ export default function Header() {
                     openLoginModal();
                     setIsMenuOpen(false);
                   }}
-                  data-umami-event={t('header.login')}
+                  data-insightflare-event="login_open"
+                  data-insightflare-event-from="mobile"
                 >
                   <FiUser className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">{t('header.login')}</span>
@@ -794,7 +809,8 @@ export default function Header() {
                       window.location.hash = 'share';
                     }
                   }}
-                  data-umami-event={t('timer.share')}
+                  data-insightflare-event="share_open"
+                  data-insightflare-event-from="mobile"
                 >
                   <FiShare2 className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">{t('timer.share')}</span>
@@ -809,7 +825,7 @@ export default function Header() {
                       window.location.hash = 'background';
                     }
                   }}
-                  data-umami-event="背景设置"
+                  data-insightflare-event="background_open"
                 >
                   <FiImage className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">背景设置</span>
@@ -824,7 +840,7 @@ export default function Header() {
                       window.location.hash = 'fullscreen-settings';
                     }
                   }}
-                  data-umami-event="全屏设置"
+                  data-insightflare-event="fullscreen_settings_open"
                 >
                   <FiMaximize className="text-xl" />
                   <span className="text-xs ml-2 flex-1 text-right">全屏设置</span>
@@ -858,7 +874,8 @@ export default function Header() {
                         setActiveTimerId(timer.id);
                         setIsMenuOpen(false);
                       }}
-                      data-umami-event="移动端切换计时器"
+                      data-insightflare-event="timer_switch"
+                      data-insightflare-event-from="mobile_menu"
                     >
                       {timer.name}
                     </motion.button>
@@ -978,7 +995,7 @@ export default function Header() {
                     <button
                       className="flex-1 btn-glass-primary flex items-center justify-center"
                       onClick={saveEditedTimer}
-                      data-umami-event={t('modal.edit.saveChanges')}
+                      data-insightflare-event="timer_edit_save"
                     >
                       <FiSave className="mr-2" />
                       {t('modal.edit.saveChanges')}
@@ -1011,14 +1028,16 @@ export default function Header() {
                         <button
                           className="p-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 cursor-pointer"
                           onClick={() => startEditTimer(timer)}
-                          data-umami-event={t('timer.editTimer')}
+                          data-insightflare-event="timer_edit_open"
+                          data-insightflare-event-type={timer.type || 'countdown'}
                         >
                           <FiEdit />
                         </button>
                         <button
                           className="p-1.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 cursor-pointer"
                           onClick={() => deleteTimer(timer.id)}
-                          data-umami-event={t('timer.deleteTimer')}
+                          data-insightflare-event="timer_delete"
+                          data-insightflare-event-type={timer.type || 'countdown'}
                         >
                           <FiX />
                         </button>
@@ -1063,7 +1082,8 @@ export default function Header() {
                 <button
                   className="w-full px-4 py-3 rounded-lg bg-white/10 dark:bg-black/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-black/20 text-left transition-all cursor-pointer"
                   onClick={() => switchLanguage('zh-CN')}
-                  data-umami-event={t('header.chinese')}
+                  data-insightflare-event="language_change"
+                  data-insightflare-event-lang="zh-CN"
                 >
                   <div className="flex items-center">
                     <span className="text-2xl mr-3">🇨🇳</span>
@@ -1077,7 +1097,8 @@ export default function Header() {
                 <button
                   className="w-full px-4 py-3 rounded-lg bg-white/10 dark:bg-black/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-black/20 text-left transition-all cursor-pointer"
                   onClick={() => switchLanguage('en-US')}
-                  data-umami-event={t('header.english')}
+                  data-insightflare-event="language_change"
+                  data-insightflare-event-lang="en-US"
                 >
                   <div className="flex items-center">
                     <span className="text-2xl mr-3">🇺🇸</span>

@@ -6,13 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export",
+    "export": "next build",
     "lint": "next lint"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
     "framer-motion": "^10.15.0",
-    "next": "13.4.12",
+    "next": "^14.2.35",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
     "react-colorful": "^5.6.1",

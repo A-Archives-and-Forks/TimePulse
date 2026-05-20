@@ -5,6 +5,7 @@ import { useFullscreen } from '../../context/FullscreenContext';
 import { useTranslation } from '../../hooks/useTranslation';
 import DigitColumn from './DigitColumn';
 import { addNotification } from '../../utils/notificationManager';
+import { track, bucketDurationMs } from '../../utils/analytics';
 import { FiPlay, FiPause, FiSquare, FiFlag, FiList } from 'react-icons/fi';
 import LapTimesModal from '../UI/LapTimesModal';
 
@@ -132,6 +133,14 @@ export default function TimerDisplay() {
         setIsFinished(true);
         setTimeValue({ years: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
         lastTimeRef.current = { years: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+        try {
+          const createdAt = timer.createdAt ? new Date(timer.createdAt).getTime() : null;
+          const totalMs = createdAt ? targetDate.getTime() - createdAt : null;
+          track('countdown_finished', {
+            duration_bucket: totalMs !== null ? bucketDurationMs(totalMs) : 'unknown',
+          });
+        } catch (e) {}
         
         // 检查并更新过期的默认计时器
         if (checkAndUpdateDefaultTimer) {
@@ -327,16 +336,18 @@ export default function TimerDisplay() {
           });
         }
         setIsRunning(true);
+        track('stopwatch_play');
         break;
-        
+
       case 'pause':
         updateTimer(timer.id, {
           isRunning: false,
           pausedAt: now.toISOString()
         });
         setIsRunning(false);
+        track('stopwatch_pause');
         break;
-        
+
       case 'stop':
         updateTimer(timer.id, {
           isRunning: false,
@@ -348,8 +359,9 @@ export default function TimerDisplay() {
         setIsRunning(false);
         setTimeValue({ years: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
         lastTimeRef.current = { years: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+        track('stopwatch_stop');
         break;
-        
+
       case 'lap':
         // Record lap time
         const startTime = new Date(timer.startTime);
@@ -364,6 +376,7 @@ export default function TimerDisplay() {
         updateTimer(timer.id, {
           laps: [...laps, newLap]
         });
+        track('stopwatch_lap', { lap_count: laps.length + 1 });
         break;
     }
   };
@@ -629,7 +642,7 @@ export default function TimerDisplay() {
             position: 'relative',
             pointerEvents: 'auto'
           }}
-          onClick={() => setIsLapModalOpen(true)}
+          onClick={() => { setIsLapModalOpen(true); track('lap_modal_open'); }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}

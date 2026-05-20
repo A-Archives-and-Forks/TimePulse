@@ -63,17 +63,17 @@ cd TimePulse
 
 2. 安装依赖
 ```bash
-npm install
+pnpm install
 ```
 
 3. 启动开发服务器
 ```bash
-npm run dev
+pnpm dev
 ```
 
 4. 构建生产版本
 ```bash
-npm run build
+pnpm build
 ```
 
 ## 使用说明
